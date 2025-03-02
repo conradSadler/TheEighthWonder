@@ -7,7 +7,7 @@ let itemToBeFormated = document.getElementById("principle");  //This finds the n
  */ 
 itemToBeFormated.addEventListener('keyup', function(evt){
     var parsedPrinciple = parseInt(this.value.replace(/\D/g,''),10);
-    parsedPrinciple.toLocaleString();
+    itemToBeFormated.value = parsedPrinciple.toLocaleString();
 }, false);
 
 /**
@@ -53,7 +53,7 @@ const calculate = () => {
 
         for(let i = 0; i < theAPY.length; i++)
         {
-            if(i == 0 && theAPY.charAt(i) == '.')
+            if((i == 0 && theAPY.charAt(i) == '.') || (theAPY.charAt(i-1) == '0' && theAPY.charAt(i) == '.'))
             {
                 parsedInitialAPY+=theAPY.charAt(i);
                 inDecimal = true;
@@ -75,14 +75,14 @@ const calculate = () => {
         const initialAmountFloat = parseFloat(parsedInitialAmount);
         const yearsFloat = parseFloat(parsedInitialYears);
 
-        let initialAPYFloat = 0;
+        let APYFloat = 0;
         if(inDecimal == true)
         {
-            initialAPYFloat = parseFloat(parsedInitialAPY);
+            APYFloat = parseFloat(parsedInitialAPY);
         }
         else
         {
-            initialAPYFloat = parseFloat(parsedInitialAPY)/100;
+            APYFloat = parseFloat(parsedInitialAPY)/100;
         }
         //This conditional below removes any previous chart that was created becasue of previous times the user clicked "calculate"
         let chartOrig = document.getElementById("compoundIntrestChart");
@@ -98,7 +98,7 @@ const calculate = () => {
         document.getElementById("chartLoc").appendChild(chart);
         let xValues = [];
         let yValues = [];
-        generateData( (initialAmountFloat+" * "+(1+(initialAPYFloat/1))+"** x") , 0, yearsFloat, 1,xValues,yValues);
+        generateData( (initialAmountFloat+" * "+(1+(APYFloat/1))+"** x") , 0, yearsFloat, 1,xValues,yValues);
 
         new Chart("compoundIntrestChart", {
             type: "line",
@@ -123,7 +123,7 @@ const calculate = () => {
               },
               title: {
                 display: true,
-                text: "Total Savings",
+                text: "Total Investment",
               }
             }
           });
