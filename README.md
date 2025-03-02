@@ -1,3 +1,1 @@
-theme: jekyll-theme-minimal
-title: Octocat's homepage
-description: Bookmark this to keep an eye on my project updates!
+This app. is intended to let users explore the wonders that compound intrest can do to capital with time.
